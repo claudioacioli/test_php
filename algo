@@ -1,0 +1,44 @@
+estado = []
+geracao => 0
+
+
+funcao retorna_vizinhos (virtual, coluna_atual, linha_atual)
+  primeiro = virtual[linha_atual -1, coluna_atual -1]
+  segundo = virtual[linha_atual -1, coluna_atual ]
+  terceiro = virtual[linha_atual -1, coluna_atual + 1]
+  quarto = virtual[linha_atual, coluna_atual - 1]
+  quinto = virtual[linha_atual, coluna_atual + 1]
+  sexto = virtual[linha_atual + 1, coluna_atual - 1]
+  setimo = virtual[linha_atual + 1, coluna_atual ]
+  oitavo = virtual[linha_atual + 1, coluna_atual + 1]
+  retorna array(primeiro, segundo, terceiro, quarto, quinto, sexto_setimo, oitavo)
+
+
+enquanto (verdadeiro) {
+  virtual = copia do estado
+  
+  para ( indice_linha < total_linhas) 
+  faca
+    para (indice_coluna < total_colunas)
+    faca
+
+      celula = virual[indice_linha, indice_coluna]
+      
+      esta_viva = se celula = 1 entao Verdadeiro : Falso
+      vizinhos = retorna_vizinhos(estado, indice_linha, indice_coluna)
+
+      total_vizinhos_vivos = soma_total(vizinhos)
+      
+      se esta_viva e total_vizinhos_vivos < 2 entao
+        celula => 0
+      se esta_viva e total_vizinhos_vivos > 3 entao
+        celula => 0
+      se nao esta_viva e total_vizinhos_vivos = 3 entao
+        celula => 1    
+       
+  if soma_total(virtual) = 0
+    para enquanto
+
+  estado = virtual
+  geracao => geracao + 1
+  imprime geracao
