@@ -1,22 +1,24 @@
 <?php
 
-function getNeighbours ($state, $rowIndex, $cellIndex)
+function getNeighbours ($generation, $positionY, $positionX)
 {
   $neighbours = [];
-  for ($i=-1; $i<=1; $i++) {
+  for ($y=-1; $y<=1; $y++) {
 
-    if (!array_key_exists($rowIndex + $i, $state))
+    $neighbourPositionY = $positionY + $y;
+    if (!array_key_exists($neighbourPositionY, $generation))
       continue;
 
-    for ($j=-1; $j<=1; $j++) {
-      
+    for ($x=-1; $x<=1; $x++) {
+
+      $neighbourPositionX = $positionX + $x;
       if (
-        !array_key_exists($cellIndex + $j, $state[$rowIndex + $i]) 
-        || (!$i && !$j)
+        !array_key_exists($neighbourPositionX, $generation[$neighbourPositionY])
+        || (!$x && !$y)
       )
         continue;
 
-      $neighbour = $state[$rowIndex + $i][$cellIndex + $j];
+      $neighbour = $generation[$neighbourPositionY][$neighbourPositionX];
       array_push($neighbours, $neighbour);
     }
   }
