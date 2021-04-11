@@ -1,0 +1,12 @@
+
+Geracao
+  existe celulas vivas
+  conjunto de celulas
+
+Celula
+  viva
+  vizinhos
+
+Vizinhos
+  quantidade de celulas vivas
+  conjunto de celulas
