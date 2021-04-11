@@ -2,8 +2,7 @@
 
 require_once('functions.php');
 
-$generation = 0;
-$state = [
+$generation = [
   [0,0,0,0,0],
   [0,0,0,0,0],
   [0,1,1,1,0],
@@ -11,18 +10,16 @@ $state = [
   [0,0,0,0,0]
 ];
 
-
 $maxGenerations = 10;
-while ($generation < $maxGenerations) {
+for ($generationAge = 0; $generationAge < $maxGenerations; $generationAge++) {
   
-  $virtual = $state;
+  $newGeneration = $generation;
 
-  for ($rowIndex=0; $rowIndex < count($virtual); $rowIndex++) {
-    for ($cellIndex=0; $cellIndex < count($virtual[0]); $cellIndex++) {
+  for ($positionY=0; $positionY < count($newGeneration); $positionY++) {
+    for ($positionX=0; $positionX < count($newGeneration[$positionY]); $positionX++) {
       
-      $cell = $virtual[$rowIndex][$cellIndex];
-
-      $neighboursLength = array_sum(getNeighbours($state, $rowIndex, $cellIndex));
+      $cell = $newGeneration[$positionY][$positionX];
+      $neighboursLength = array_sum(getNeighbours($generation, $positionY, $positionX));
 
       if ($cell && ( $neighboursLength < 2 || $neighboursLength > 3)) {
         $cell = 0;
@@ -30,22 +27,21 @@ while ($generation < $maxGenerations) {
         $cell = 1;
       }
       
-      $virtual[$rowIndex][$cellIndex] = $cell;
+      $newGeneration[$positionY][$positionX] = $cell;
     }
   }
 
-  $aliveCells = 0;
-  forEach ($virtual as $value) {
-    $aliveCells += array_sum($value);
+  $alives = 0;
+  forEach ($newGeneration as $alive) {
+    $alives += array_sum($alive);
   }
 
-  if (!$aliveCells) {
-    echo json_encode($virtual) . PHP_EOL;
+  if (!$alives) {
+    echo json_encode($newGeneration) . PHP_EOL;
     echo 'GameOver!!' . PHP_EOL;
     break;
   }
   
-  $state = $virtual;
-  echo $generation . " - " .  json_encode($state) . PHP_EOL;
-  $generation++;
+  $generation = $newGeneration;
+  echo $generationAge . " - " .  json_encode($generation) . PHP_EOL;
 }
