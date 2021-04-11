@@ -31,10 +31,7 @@ for ($generationAge = 0; $generationAge < $maxGenerations; $generationAge++) {
     }
   }
 
-  $alives = 0;
-  forEach ($newGeneration as $alive) {
-    $alives += array_sum($alive);
-  }
+  $alives = array_sum(array_map('array_sum', $newGeneration));
 
   if (!$alives) {
     echo json_encode($newGeneration) . PHP_EOL;
