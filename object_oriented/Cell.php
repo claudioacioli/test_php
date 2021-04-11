@@ -54,7 +54,7 @@ class Cell
   {
     $alives = 0;
     forEach($this->getNeighbours($generation) as $neighbour) {
-      $alives += $neighbour->isAlive() ? 1 : 0;
+      $alives += $neighbour->isAlive();
     }
     return $alives;
   }
